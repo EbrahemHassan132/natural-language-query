@@ -9,25 +9,25 @@ from langchain_community.utilities import SQLDatabase
 from langchain_community.agent_toolkits import SQLDatabaseToolkit
 import requests
 
-# Step 1: Load the Excel file into a DataFrame
+# Load the Excel file into a DataFrame
 excel_file_path = r'Intern NLP Dataset.xlsx'
 df = pd.read_excel(excel_file_path)
 
-# Step 2: Define the path to the SQLite database file
+# Define the path to the SQLite database file
 db_file_path = 'Intern_NLP_Dataset.db'
 
-# Step 3: Check if the SQLite database file exists and delete it if it does
+# Check if the SQLite database file exists and delete it if it does
 if os.path.exists(db_file_path):
     os.remove(db_file_path)
     print(f"Existing database file '{db_file_path}' has been deleted.")
 
-# Step 4: Create a new connection to the SQLite database
+# Create a new connection to the SQLite database
 conn = sqlite3.connect(db_file_path)
 
-# Step 5: Write the DataFrame to the SQLite database
+# Write the DataFrame to the SQLite database
 df.to_sql('visits_table', conn, if_exists='replace', index=False)
 
-# Step 6: Close the connection
+# Close the connection
 conn.close()
 print(f"Data has been written to '{db_file_path}' successfully.")
 
@@ -38,7 +38,7 @@ llm = ChatGoogleGenerativeAI(model="gemini-pro", google_api_key="Your API key")
 # Load tools for the agent
 tools = load_tools(["llm-math"], llm=llm)
 
-# Path to your SQLite database file
+# Path to SQLite database file
 db_file_path = r"Intern_NLP_Dataset.db"
 
 # Create the SQLDatabase instance for SQLite
